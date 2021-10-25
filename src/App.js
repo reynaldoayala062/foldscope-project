@@ -5,7 +5,8 @@ class App extends React.Component {
 
   state = {
       text: "",
-      answer: []
+      answer: [],
+      top: "calculating"
 
   }
 
@@ -25,12 +26,19 @@ class App extends React.Component {
         }
     }
 
-    console.log(b)
+   
+
+    const sortable = Object.fromEntries(
+      Object.entries(b).sort(([,a],[,b]) => b -a)
+  );
+  
+  console.log(Object.entries(sortable).slice(0, 5))
 
     this.setState({
       ...this.state,
       text: a,
-      answer: Object.entries(b)
+      answer: Object.entries(b),
+      top: Object.entries(sortable).slice(0, 5)
 
   })
 }
@@ -59,7 +67,8 @@ class App extends React.Component {
               <textarea onChange={this.handleChange}></textarea>
               <h3> Answer </h3>
               <p> Text: {this.state.text} </p>
-              <ul> Character Count: {this.state.answer} </ul>
+              <p> Character Count: {this.state.answer} </p>
+              <p> Top 5: {this.state.top} </p>
           </div>
         </div>
       </div>
